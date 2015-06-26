@@ -1,0 +1,6 @@
+---
+# This playbook renders virtualbox modules
+
+- name: configure virtual box modules
+  template: src=virtualbox_modules.j2 dest=/etc/modules-load.d/virtualbox.conf
+    owner=root group=root mode=0644

@@ -1,0 +1,51 @@
+---
+# This playbook configures local development settings.
+- name: add bashrc
+  copy: src=dotfiles/bashrc dest=/home/brettk/.bashrc
+    owner=brettk mode=0644
+
+- name: add xinitrc
+  copy: src=dotfiles/xinitrc dest=/home/brettk/.xinitrc
+    owner=brettk mode=0644
+
+- name: add tmux configuration
+  copy: src=dotfiles/tmux.conf dest=/home/brettk/.tmux.conf
+    owner=brettk mode=0644
+
+- name: add Xmodmap
+  copy: src=dotfiles/tmux.conf dest=/home/brettk/.Xmodmap
+    owner=brettk mode=0644
+
+- name: add Xresources
+  copy: src=dotfiles/Xresources dest=/home/brettk/.Xresources
+    owner=brettk mode=0644
+
+- name: create directory for autostart
+  file: path=/home/brettk/.config/autostart state=directory mode=750 owner=brettk recurse=true
+
+- name: add autostart
+  copy: src=dotfiles/autostart/startup.desktop dest=/home/brettk/.config/autostart/startup.desktop owner=brettk mode=0644
+
+- name: create directory for bin
+  file: path=/home/brettk/bin state=directory mode=0644
+
+- name: add backgroundshell
+  copy: src=dotfiles/bin/Xfce_wallpaper.sh dest=/home/brettk/bin/xfce_wallpaper.sh owner=brettk mode=0644
+
+- name: make directory for xconfigs
+  file: path=/home/brettk/.config/xfce4/xfconf/xfce-perchannel-xml state=directory mode=750 owner=brettk recurse=true
+
+- name: add keyboard shortcuts
+  copy: src=dotfiles/xfce4-keyboard-shortcuts.xml dest=/home/brettk/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml owner=brettk mode=0644
+
+- name: add panel preferences
+  copy: src=dotfiles/xfce4-panel.xml dest=/home/brettk/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml owner=brettk mode=0644
+
+- name: add xsettings.xml
+  copy: src=dotfiles/xsettings.xml dest=/home/brettk/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml owner=brettk mode=0644
+
+- name: add xfce4-desktop.xml
+  copy: src=dotfiles/xfce4-desktop.xml dest=/home/brettk/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml owner=brettk mode=0644
+
+- name: add the desktop background
+  shell: wget -O /usr/share/backgrounds/xfce/dark.jpg http://www.trbimg.com/img-524bc0c6/turbine/la-et-cm-review-james-welling-at-the-hammer-20131001 && chmod 777 /usr/share/backgrounds/xfce/dark.jpg

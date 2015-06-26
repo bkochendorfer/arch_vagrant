@@ -1,0 +1,19 @@
+---
+# This playbook handles user creation and access rights.
+
+- name: create user brettk
+  user: name=brettk comment="Brett Kochendorfer"
+    uid=1111 group=users
+  tags: bootstrap
+
+- name: add ssh pubkey to authorized_keys for user brettk
+  authorized_key: user=brettk key="{{ item }}"
+  with_file:
+    - ssh/brettk/id_rsa.pub
+  tags: bootstrap
+
+- name: grant full sudo rights to user brettk
+  copy: src=sudoers_brettk dest=/etc/sudoers.d/10_brettk
+    owner=root group=root mode=0440
+    validate='visudo -cf %s'
+  tags: bootstrap

@@ -1,0 +1,14 @@
+---
+- name: run pacman update first
+  shell: pacman -Syyu --noconfirm >> /update.txt
+
+- name: install xfce package binary and its dependencies
+  pacman: name={{ item }} state=installed
+  with_items:
+    - mesa-libgl
+    - xf86-video-vesa
+    - xorg-server
+    - xorg-xinit
+    - xorg-twm
+    - xfce4
+    - xfce4-goodies
